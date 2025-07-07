@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LobbyPi</title>
+  <link rel="shortcut icon" href="/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fdf6e3, #fff3e1);
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #800020;
+      margin-bottom: 0.3em;
+    }
+
+    p.subtitle {
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #800020;
+      margin-bottom: 0.5em;
+      padding-bottom: 0.2em;
+      border-bottom: 2px solid #f7bf14;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin: 0.6em 0;
+    }
+
+    a {
+      color: #800020;
+      text-decoration: none;
+      font-weight: 600;
+      background-color: rgba(247, 191, 20, 0.1);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      display: inline-block;
+      transition: background-color 0.2s ease;
+    }
+
+    a:hover {
+      background-color: rgba(247, 191, 20, 0.2);
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #666;
+      margin-left: 0.5em;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LobbyPi.XYZ</h1>
+    <p class="subtitle">THS Digital Signage Control Panel</p>
+  </header>
+
+  <section>
+    <h2>Clocks & Slides</h2>
+    <ul>
+      <li><a href="/lobbypi/index.html">LobbyPi Clock</a></li>
+      <li><a href="/4thfloorpi/index.html">4th FloorPi Clock</a></li>
+      <li><a href="/clubs/index.html">Clubs & Slides Directory</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Screenly Dashboards</h2>
+    <ul>
+      <li><a href="http://10.0.100.1">LobbyPi Anthias Dashboard</a><span class="note">(THSLocal required)</span></li>
+      <li><a href="http://10.51.0.156">4thFloorPi Screenly OSE Dashboard</a><span class="note">(THSLocal required)</span></li>
+      <li><a href="http://10.104.51.61">AdmissionsPi Anthias Dashboard</a><span class="note">(THSLocal required)</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Other Devices</h2>
+    <ul>
+      <li><a href="http://10.7.0.240">Theater Sony SRG-360SHE</a><span class="note">(THSLocal required)</span></li>
+      <li><a href="http://10.6.0.207">Cafeteria Printer Admin</a><span class="note">(THSLocal required)</span></li>
+    </ul>
+  </section>
+</body>
+</html>
