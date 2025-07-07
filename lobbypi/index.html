@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LobbyPi Time</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/images/favicon.png" />
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* Reset & basic layout */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-image: url('/images/background.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 100px;
+      margin: 50px 0 0 0;
+      text-shadow: 7px 7px #f7bf14;
+    }
+
+    #clock {
+      font-family: 'Anton', sans-serif;
+      font-size: 300px;
+      color: #800020;
+      text-shadow: 7px 7px #f7bf14;
+      margin-top: 50px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    #schedule {
+      font-weight: 400;
+      font-size: 105px;
+      margin-top: 95px;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Position bottom-right logo if you want to re-enable it */
+    /* #logo {
+      position: absolute;
+      bottom: 55px;
+      right: 30px;
+      width: 200px;
+      height: 200px;
+      user-select: none;
+    } */
+  </style>
+</head>
+
+<body>
+  <h1>Time</h1>
+
+  <div id="clock" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="schedule">
+    <p id="day-period"></p>
+  </div>
+
+  <script>
+    // Get Eastern Time
+    function getEasternTime() {
+      return new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+    }
+
+    // Days of the week
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    // School period schedule (24h time in HH:MM)
+    const periods = [
+      { start: "08:30", end: "09:10", name: "Period 1" },
+      { start: "09:10", end: "09:15", name: "Five Minute Break" },
+      { start: "09:15", end: "09:55", name: "Period 2" },
+      { start: "09:55", end: "10:00", name: "Five Minute Break" },
+      { start: "10:00", end: "10:40", name: "Period 3" },
+      { start: "10:40", end: "10:45", name: "Five Minute Break" },
+      { start: "10:45", end: "11:25", name: "Period 4" },
+      { start: "11:25", end: "11:30", name: "Five Minute Break" },
+      { start: "11:30", end: "12:10", name: "Period 5" },
+      { start: "12:10", end: "12:15", name: "Five Minute Break" },
+      { start: "12:15", end: "12:55", name: "Period 6" },
+      { start: "12:55", end: "13:00", name: "Five Minute Break" },
+      { start: "13:00", end: "13:40", name: "Period 7" },
+      { start: "13:40", end: "13:45", name: "Five Minute Break" },
+      { start: "13:45", end: "14:25", name: "Period 8" },
+      { start: "14:25", end: "14:30", name: "Five Minute Break" },
+      { start: "14:30", end: "15:10", name: "Period 9" }
+    ];
+
+    // Pad numbers with leading zeros
+    function padZero(num) {
+      return num < 10 ? "0" + num : num;
+    }
+
+    // Convert HH:MM string to minutes since midnight
+    function toMinutes(timeStr) {
+      const [h, m] = timeStr.split(":").map(Number);
+      return h * 60 + m;
+    }
+
+    // Get current period based on current time
+    function getCurrentPeriod(time) {
+      const currentMinutes = time.getHours() * 60 + time.getMinutes();
+
+      for (const period of periods) {
+        if (currentMinutes >= toMinutes(period.start) && currentMinutes < toMinutes(period.end)) {
+          return period.name;
+        }
+      }
+      return null;
+    }
+
+    // Update time and schedule display
+    function updateDisplay() {
+      const now = getEasternTime();
+
+      // Update clock
+      let hours = now.getHours();
+      const minutes = padZero(now.getMinutes());
+      const seconds = padZero(now.getSeconds());
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      hours = hours % 12 || 12;
+
+      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+
+      // Update day and period
+      const dayName = daysOfWeek[now.getDay()];
+      const currentPeriod = getCurrentPeriod(now);
+
+      const dayPeriodText = currentPeriod ? `${dayName} | ${currentPeriod}` : dayName;
+      document.getElementById("day-period").textContent = dayPeriodText;
+    }
+
+    // Initial call
+    updateDisplay();
+
+    // Update every second
+    setInterval(updateDisplay, 1000);
+  </script>
+</body>
+
+</html>
